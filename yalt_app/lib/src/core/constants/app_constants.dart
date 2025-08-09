@@ -11,6 +11,7 @@ class AppConstants {
   static const String milestonesBox = 'box_milestones';
   static const String achievementsBox = 'box_achievements';
   static const String settingsBox = 'box_settings';
+  static const String simpleStorageBox = 'simple_storage'; // Add this
   
   // Hive Type IDs
   static const int dailyLogTypeId = 0;

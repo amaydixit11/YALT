@@ -1,4 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:hive/hive.dart';
 import '../models/daily_log.dart';
 import '../models/custom_counter.dart';
 import '../models/counter_event.dart';
@@ -24,14 +25,28 @@ class Repository {
   }
   
   Future<bool> isFirstRun() async {
-    final box = HiveBoxes.settings;
-    final firstRun = box.get(AppConstants.firstRunKey, defaultValue: true);
-    // Fix: Cast to bool or provide proper type handling
-    return firstRun as bool? ?? true;
+    final settings = await getSettings();
+    // You can either add a firstRun field to Settings model,
+    // or use a separate box for simple key-value pairs
+    
+    // Option 1: If you add firstRun to Settings model
+    // return settings.firstRun ?? true;
+    
+    // Option 2: Use a separate box for simple values
+    // Create a separate box for simple key-value storage
+    final box = Hive.box('simple_storage'); // You'll need to open this box in your setup
+    return box.get(AppConstants.firstRunKey, defaultValue: true) as bool? ?? true;
   }
   
   Future<void> setFirstRunComplete() async {
-    await HiveBoxes.settings.put(AppConstants.firstRunKey, false);
+    // Option 1: Update the Settings model
+    final currentSettings = await getSettings();
+    final updatedSettings = currentSettings.copyWith(/* add firstRun: false if you add this field */);
+    await saveSettings(updatedSettings);
+    
+    // Option 2: Use separate box for simple values (recommended for this case)
+    final box = Hive.box('simple_storage'); // You'll need to open this box in your setup
+    await box.put(AppConstants.firstRunKey, false);
   }
   
   // Daily Logs
@@ -233,29 +248,35 @@ class Repository {
       HiveBoxes.counterEvents.clear(),
       HiveBoxes.milestones.clear(),
       HiveBoxes.achievements.clear(),
+      // Don't clear settings completely, just reset to defaults
+      // HiveBoxes.settings.clear(),
     ]);
     
-    // Fix: Call a public method or create the functionality directly
+    // Reset settings to defaults instead of clearing
+    await saveSettings(Settings());
+    
+    // Initialize default achievements
     await _initializeDefaultAchievements();
   }
   
-  // Fix: Create a private method to handle achievement initialization
+  // Initialize default achievements
   Future<void> _initializeDefaultAchievements() async {
-    // You can either:
-    // 1. Call a public method from HiveSetup if it exists
-    // 2. Or implement the achievement initialization here
-    // 3. Or make the method public in HiveSetup
-    
-    // Option 1: If HiveSetup has a public method
-    // await HiveSetup.initializeAchievements();
-    
-    // Option 2: Implement initialization here (example)
-    // This is just an example - adjust based on your Achievement model
-    final defaultAchievements = [
+    // Example default achievements - adjust based on your Achievement model
+    final defaultAchievements = <Achievement>[
       // Add your default achievements here
-      // Achievement(id: '1', title: 'First Step', description: 'Complete your first day', unlocked: false),
-      // Achievement(id: '2', title: 'Week Warrior', description: 'Complete 7 days', unlocked: false),
-      // etc.
+      // Achievement(
+      //   id: '1', 
+      //   title: 'First Step', 
+      //   description: 'Complete your first day', 
+      //   unlocked: false
+      // ),
+      // Achievement(
+      //   id: '2', 
+      //   title: 'Week Warrior', 
+      //   description: 'Complete 7 consecutive days', 
+      //   unlocked: false
+      // ),
+      // Add more achievements as needed
     ];
     
     for (final achievement in defaultAchievements) {
