@@ -1,0 +1,168 @@
+{
+  "settings": {
+    "themeMode": "system",
+    "dbVersion": 1,
+    "useEncryption": false,
+    "autoBackup": false,
+    "analyticsOptIn": false,
+    "locale": "en"
+  },
+  "dailyLogs": [
+    {
+      "id": "sample-1",
+      "date": "2025-01-14T00:00:00.000Z",
+      "mood": 4,
+      "energy": 4,
+      "sleepHours": 7.0,
+      "waterCups": 6,
+      "customCounters": {},
+      "note": "Productive day at work",
+      "tags": null,
+      "updatedAt": "2025-01-14T20:00:00.000Z"
+    },
+    {
+      "id": "sample-2",
+      "date": "2025-01-13T00:00:00.000Z",
+      "mood": 3,
+      "energy": 3,
+      "sleepHours": 5.5,
+      "waterCups": 3,
+      "customCounters": {},
+      "note": "Tired but okay",
+      "tags": null,
+      "updatedAt": "2025-01-13T19:30:00.000Z"
+    },
+    {
+      "id": "sample-3",
+      "date": "2025-01-12T00:00:00.000Z",
+      "mood": 5,
+      "energy": 5,
+      "sleepHours": 8.5,
+      "waterCups": 10,
+      "customCounters": {},
+      "note": "Amazing day! Felt great all day",
+      "tags": ["weekend", "relaxing"],
+      "updatedAt": "2025-01-12T21:00:00.000Z"
+    },
+    {
+      "id": "sample-4",
+      "date": "2025-01-11T00:00:00.000Z",
+      "mood": 4,
+      "energy": 3,
+      "sleepHours": 7.0,
+      "waterCups": 7,
+      "customCounters": {},
+      "note": "Good workout session",
+      "tags": ["exercise"],
+      "updatedAt": "2025-01-11T18:45:00.000Z"
+    },
+    {
+      "id": "sample-5",
+      "date": "2025-01-10T00:00:00.000Z",
+      "mood": 3,
+      "energy": 4,
+      "sleepHours": 6.5,
+      "waterCups": 5,
+      "customCounters": {},
+      "note": "Busy day with meetings",
+      "tags": ["work"],
+      "updatedAt": "2025-01-10T22:15:00.000Z"
+    }
+  ],
+  "customCounters": [
+    {
+      "id": "c1",
+      "name": "Study Hours",
+      "unit": "hrs",
+      "step": 0.5,
+      "dailyReset": true,
+      "trackHistory": true,
+      "colorIndex": 0
+    },
+    {
+      "id": "c2",
+      "name": "Books Read",
+      "unit": "books",
+      "step": 1.0,
+      "dailyReset": false,
+      "trackHistory": true,
+      "colorIndex": 1
+    }
+  ],
+  "counterEvents": [
+    {
+      "id": "e1",
+      "counterId": "c1",
+      "timestamp": "2025-01-14T18:00:00.000Z",
+      "delta": 2.0,
+      "note": "Studied algorithms"
+    },
+    {
+      "id": "e2",
+      "counterId": "c2",
+      "timestamp": "2025-01-12T15:30:00.000Z",
+      "delta": 1.0,
+      "note": "Finished 'Clean Code'"
+    }
+  ],
+  "milestones": [
+    {
+      "id": "m1",
+      "title": "Started LifeStats Journey",
+      "date": "2025-01-10T00:00:00.000Z",
+      "note": "Beginning my personal tracking journey",
+      "imageFilePath": null,
+      "createdAt": "2025-01-10T12:00:00.000Z"
+    }
+  ],
+  "achievements": [
+    {
+      "id": "first_log",
+      "title": "First Steps",
+      "description": "Log your first day",
+      "unlocked": true,
+      "unlockedAt": "2025-01-10T12:00:00.000Z",
+      "iconName": "star"
+    },
+    {
+      "id": "week_streak",
+      "title": "Week Warrior",
+      "description": "Log for 7 consecutive days",
+      "unlocked": false,
+      "unlockedAt": null,
+      "iconName": "calendar"
+    },
+    {
+      "id": "month_streak",
+      "title": "Monthly Master",
+      "description": "Log for 30 consecutive days",
+      "unlocked": false,
+      "unlockedAt": null,
+      "iconName": "trophy"
+    },
+    {
+      "id": "hydration_hero",
+      "title": "Hydration Hero",
+      "description": "Drink 8+ cups of water in a day",
+      "unlocked": false,
+      "unlockedAt": null,
+      "iconName": "water_drop"
+    },
+    {
+      "id": "sleep_champion",
+      "title": "Sleep Champion",
+      "description": "Get 8+ hours of sleep",
+      "unlocked": true,
+      "unlockedAt": "2025-01-12T08:00:00.000Z",
+      "iconName": "bed"
+    },
+    {
+      "id": "mood_master",
+      "title": "Mood Master",
+      "description": "Stay happy for 7 consecutive days",
+      "unlocked": false,
+      "unlockedAt": null,
+      "iconName": "emoji_emotions"
+    }
+  ]
+}
