@@ -6,9 +6,14 @@ import 'src/core/constants/app_constants.dart';
 import 'src/core/theme/app_theme.dart';
 import 'src/data/local/hive_setup.dart';
 import 'src/core/services/notification_service.dart';
-import 'src/features/main/main_screen.dart';
-import 'src/features/onboarding/onboarding_screen.dart';
+import 'src/ui/screens/main_screen.dart';
+import 'src/ui/screens/onboarding_screen.dart';
 import 'src/viewmodels/settings_viewmodel.dart';
+import 'src/ui/widgets/common/bottom_navigation.dart';
+import 'src/ui/widgets/common/main_layout.dart';
+import 'src/ui/widgets/common/quick_add_button.dart';
+import 'src/ui/widgets/common/section_header.dart';
+import 'src/ui/widgets/common/stat_card_widget.dart';
 
 void main() async {
   // Ensure that Flutter bindings are initialized before any async operations
@@ -77,8 +82,8 @@ class MyApp extends ConsumerWidget {
       home: isFirstRunAsync.when(
         data: (isFirstRun) {
           // If it's the first time the user opens the app, show the onboarding flow.
-          // Otherwise, go straight to the main screen.
-          return isFirstRun ? const OnboardingScreen() : const MainScreen();
+          // Otherwise, go straight to the main screen with the new layout structure.
+          return const MainScreen();
         },
         loading: () => const Scaffold(
           body: Center(child: CircularProgressIndicator()),

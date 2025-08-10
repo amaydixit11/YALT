@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
-import '../models/daily_log.dart';
-import '../core/utils/date_utils.dart' as date_utils;
+import '../../models/daily_log.dart';
+import '../../core/utils/date_utils.dart' as date_utils;
 
 class MiniChart extends StatelessWidget {
   final List<DailyLog> logs;

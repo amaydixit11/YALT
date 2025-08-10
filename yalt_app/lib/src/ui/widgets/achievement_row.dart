@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
-import '../../../models/achievement.dart';
+import '../../models/achievement.dart';
 
 class AchievementRow extends StatelessWidget {
   final List<Achievement> achievements;

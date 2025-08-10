@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
-import '../core/constants/app_constants.dart';
+import '../../core/constants/app_constants.dart';
 
 class EnergySelector extends StatelessWidget {
   final int selectedEnergy;

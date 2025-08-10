@@ -5,11 +5,11 @@ import 'package:confetti/confetti.dart';
 import '../../viewmodels/dashboard_viewmodel.dart';
 import '../../core/constants/app_constants.dart';
 import '../../core/utils/date_utils.dart' as date_utils;
-import '../../widgets/mood_selector.dart';
-import '../../widgets/quick_counter.dart';
-import '../../widgets/streak_card.dart';
-import '../../widgets/mini_chart.dart';
-import '../../widgets/fun_fact_card.dart';
+import '../widgets/mood_selector.dart';
+import '../widgets/quick_counter.dart';
+import '../widgets/streak_card.dart';
+import '../widgets/mini_chart.dart';
+import '../widgets/fun_fact_card.dart';
 
 class DashboardScreen extends ConsumerStatefulWidget {
   const DashboardScreen({super.key});
