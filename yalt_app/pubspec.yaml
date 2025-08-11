@@ -47,6 +47,8 @@ dependencies:
   json_annotation: ^4.9.0
   flutter_local_notifications: ^19.4.0
   csv: ^6.0.0
+  get_it: ^8.2.0
+  isar: ^3.1.0+1
 
 dev_dependencies:
   flutter_test:
