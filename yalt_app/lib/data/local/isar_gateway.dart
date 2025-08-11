@@ -27,4 +27,17 @@ class IsarGateway {
   Future<List<MetricEntryIsar>> getAllEntries() async {
     return await _isar.metricEntryIsars.where().findAll();
   }
+
+  Future<List<MetricEntryIsar>> getBooleanEntriesInRange(
+    int metricId,
+    DateTime start,
+    DateTime end,
+  ) {
+    return _isar.metricEntryIsars
+        .filter()
+        .metricIdEqualTo(metricId)
+        .booleanValueEqualTo(true)
+        .timestampBetween(start, end, includeLower: true, includeUpper: false)
+        .findAll();
+  }
 }

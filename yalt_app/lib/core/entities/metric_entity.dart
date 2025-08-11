@@ -14,3 +14,8 @@ class BooleanMetricEntry extends MetricEntry {
   final bool value;
   BooleanMetricEntry(int metricId, this.value) : super(metricId);
 }
+
+class TextMetricEntry extends MetricEntry {
+  final String value;
+  TextMetricEntry(int metricId, this.value) : super(metricId);
+}

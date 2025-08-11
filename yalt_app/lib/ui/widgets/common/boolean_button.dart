@@ -14,9 +14,23 @@ class BooleanButton extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return ElevatedButton(
-      onPressed: () => ref.read(booleanLoggerProvider)(metricId),
-      child: Text(label),
+    final loggedTodayAsync = ref.watch(booleanLoggedTodayProvider(metricId));
+
+    return loggedTodayAsync.when(
+      data: (loggedToday) => ElevatedButton(
+        onPressed: loggedToday
+            ? null // disable button if already logged today
+            : () => ref.read(booleanLoggerProvider)(metricId),
+        child: Text(label),
+      ),
+      loading: () => ElevatedButton(
+        onPressed: null,
+        child: const CircularProgressIndicator(),
+      ),
+      error: (e, st) => ElevatedButton(
+        onPressed: () => ref.read(booleanLoggerProvider)(metricId),
+        child: Text(label),
+      ),
     );
   }
 }
