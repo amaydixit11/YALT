@@ -11,9 +11,44 @@ class DebugButton extends ConsumerWidget {
 
     return ElevatedButton(
       onPressed: () async {
-        await logService.printAllEntries();
+        final entries = await logService.getAllEntries();
+
+        showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+            title: const Text('Database Entries'),
+            content: SizedBox(
+              width: double.maxFinite,
+              child: entries.isEmpty
+                  ? const Text('No entries found.')
+                  : ListView.builder(
+                      shrinkWrap: true,
+                      itemCount: entries.length,
+                      itemBuilder: (context, index) {
+                        final e = entries[index];
+                        final time = e.timestamp?.toLocal().toString() ?? 'Unknown time';
+
+                        return ListTile(
+                          title: Text('Metric ID: ${e.metricId}'),
+                          subtitle: Text(
+                            'Timestamp: $time\n'
+                            'Boolean: ${e.booleanValue}\n'
+                            'Numeric: ${e.numericValue}',
+                          ),
+                        );
+                      },
+                    ),
+            ),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.of(context).pop(),
+                child: const Text('Close'),
+              ),
+            ],
+          ),
+        );
       },
-      child: const Text('Print DB Entries'),
+      child: const Text('Show DB Entries'),
     );
   }
 }

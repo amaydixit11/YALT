@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:yalt_app/core/entities/metric_entity.dart';
+import 'package:yalt_app/data/local/isar_collections.dart';
 import '../../data/local/isar_gateway.dart';
 
 class LogService {
@@ -29,6 +30,11 @@ class LogService {
       );
     }
   }
+
+  Future<List<MetricEntryIsar>> getAllEntries() async {
+    return await _gateway.getAllEntries();
+  }
+
 
   Future<bool> isBooleanLoggedToday(int metricId) async {
     final now = DateTime.now();

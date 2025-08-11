@@ -10,7 +10,7 @@ class MetricIds {
   static const COLD_DRINK_PEPSI = 7;
   static const COLD_DRINK_THUMBSUP = 8;
   static const COLD_DRINK_SPRITE = 9;
-  static const COLD_DRINK_MOUNTAINDew = 10;
+  static const COLD_DRINK_MOUNTAINDEW = 10;
   static const COLD_DRINK_FANTA = 11;
   static const COLD_DRINK_MIRINDA = 12;
   static const COLD_DRINK_STING = 13;
@@ -40,11 +40,15 @@ class MetricIds {
   static const SCREEN_TIME_LAPTOP = 109;
   static const SCREEN_TIME_TV = 110;
   static const SCREEN_TIME_STEPS = 111;
-
+  static const WEIGHT = 112;
 
   // Productivity Related 200-300
   static const PROBLEMS_SOLVED = 200;
   static const STUDY = 201;
+  static const PROJECTS_STARTED = 202;
+  static const NEW_IDEAS = 203;
+  static const CLASSES_ATTENDED = 204;
+  static const CLASSES_MISSED = 205;
 
   // Entertainment Related 300-400
   static const GAMING = 300;
@@ -61,8 +65,33 @@ class MetricIds {
   static const EXCITED = 404;
   static const RELAXED = 405;
   static const ANXIOUS = 406;
+  static const ENERGY_LEVEL = 407;
+  static const ANXIETY_LEVEL = 408;
+  static const STRESS_LEVEL = 409;
 
   // Finance Related 500-600
   static const SPENDING_CASH = 500;
   static const SPENDING_UPI = 501;
+
+  // Travel Related 600-700
+  static const CITIES = 600;
+  static const STATES = 601;
+  static const COUNTRIES = 602;
+  static const TRAIN = 603;
+  static const FLIGHT = 604;
+  static const BOAT = 605;
+  static const CAR = 606;
+  static const BIKE = 607;
+  static const SCOOTY = 608;
+  static const CYCLE = 609;
+  static const METRO = 610;
+
+  // Social Related 700-800
+  static const FRIENDS = 700;
+  static const FAMILY = 701;
+  static const COLLEAGUES = 702;
+  static const RELATIVES = 703;
+  static const ONLINE_FRIENDS = 704;
+
+
 }
