@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'today_screen.dart';
 import 'lifetime_screen.dart';
+import 'time_tracker_screen.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -15,7 +16,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: 2, vsync: this);
+    _tabController = TabController(length: 3, vsync: this);
   }
 
   @override
@@ -41,7 +42,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
         foregroundColor: Colors.black,
         bottom: TabBar(
           controller: _tabController,
-          tabs: [
+          tabs: const [
             Tab(
               icon: Icon(Icons.today),
               text: "Today",
@@ -50,18 +51,24 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
               icon: Icon(Icons.timeline),
               text: "Lifetime",
             ),
+            Tab(
+              icon: Icon(Icons.access_time),
+              text: "Time Tracker",
+            ),
           ],
           indicatorColor: Colors.blue,
           labelColor: Colors.blue,
           unselectedLabelColor: Colors.grey,
           indicatorWeight: 3,
+          isScrollable: false,
         ),
       ),
       body: TabBarView(
         controller: _tabController,
-        children: [
+        children: const [
           TodayScreen(),
           LifetimeScreen(),
+          TimeTrackerScreen(),
         ],
       ),
     );

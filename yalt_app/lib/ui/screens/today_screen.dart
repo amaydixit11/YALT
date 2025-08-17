@@ -85,12 +85,12 @@ class TodayScreen extends StatelessWidget {
 
     // Health Related - Today
     final healthHygiene = [
-      IncrementalButton(label: "Hand Washing", metricId: MetricIds.HAND_WASHING),
-      IncrementalButton(label: "Shower", metricId: MetricIds.SHOWER),
-      IncrementalButton(label: "Brush", metricId: MetricIds.BRUSH),
-      IncrementalButton(label: "Poop", metricId: MetricIds.POOP),
-      IncrementalButton(label: "Pee", metricId: MetricIds.PEE),
-      IncrementalButton(label: "Momentum", metricId: MetricIds.MOMENTUM),
+      CounterButton(label: "Hand Washing", metricId: MetricIds.HAND_WASHING),
+      CounterButton(label: "Shower", metricId: MetricIds.SHOWER),
+      CounterButton(label: "Brush", metricId: MetricIds.BRUSH),
+      CounterButton(label: "Poop", metricId: MetricIds.POOP),
+      CounterButton(label: "Pee", metricId: MetricIds.PEE),
+      CounterButton(label: "Momentum", metricId: MetricIds.MOMENTUM),
     ];
 
     final healthTracking = [

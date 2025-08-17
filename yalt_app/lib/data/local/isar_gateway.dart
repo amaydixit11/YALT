@@ -1,5 +1,6 @@
 import 'package:isar/isar.dart';
 import 'package:yalt_app/core/entities/metric_entity.dart';
+import 'package:yalt_app/core/entities/time_tracker_entity.dart';
 
 import 'isar_collections.dart';
 
@@ -39,5 +40,59 @@ class IsarGateway {
         .booleanValueEqualTo(true)
         .timestampBetween(start, end, includeLower: true, includeUpper: false)
         .findAll();
+  }
+
+    // Time Tracker methods
+  Future<void> saveTimeTrackerEntry(TimeTrackerEntry entry) async {
+    final isarEntry = TimeTrackerEntryIsar.fromEntity(entry);
+    await _isar.writeTxn(() async {
+      await _isar.timeTrackerEntryIsars.put(isarEntry);
+    });
+  }
+
+  Future<List<TimeTrackerEntry>> getTimeEntriesForDate(DateTime date) async {
+    final startOfDay = DateTime(date.year, date.month, date.day);
+    final endOfDay = startOfDay.add(const Duration(days: 1));
+
+    final isarEntries = await _isar.timeTrackerEntryIsars
+        .filter()
+        .startTimeBetween(startOfDay, endOfDay)
+        .sortByStartTime()
+        .findAll();
+
+    return isarEntries.map((e) => e.toEntity()).toList();
+  }
+
+  Future<List<TimeTrackerEntry>> getAllTimeEntries() async {
+    final isarEntries = await _isar.timeTrackerEntryIsars
+        .where()
+        .sortByStartTime()
+        .findAll();
+
+    return isarEntries.map((e) => e.toEntity()).toList();
+  }
+
+  Future<TimeTrackerEntry?> getLastTimeEntry() async {
+    final isarEntry = await _isar.timeTrackerEntryIsars
+        .where()
+        .sortByStartTimeDesc()
+        .findFirst();
+
+    return isarEntry?.toEntity();
+  }
+
+  Future<bool> hasOverlappingTimeEntry(DateTime startTime, DateTime endTime, {int? excludeId}) async {
+    var query = _isar.timeTrackerEntryIsars
+        .filter()
+        .startTimeLessThan(endTime)
+        .and()
+        .endTimeGreaterThan(startTime);
+
+    if (excludeId != null) {
+      query = query.and().not().idEqualTo(excludeId);
+    }
+
+    final overlapping = await query.findFirst();
+    return overlapping != null;
   }
 }
