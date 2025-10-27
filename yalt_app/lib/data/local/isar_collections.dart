@@ -10,9 +10,10 @@ class MetricEntryIsar {
   late DateTime timestamp;
   double? numericValue;
   bool? booleanValue;
+  String? textValue;
 }
 
-@Collection()
+@collection
 class TimeTrackerEntryIsar {
   Id id = Isar.autoIncrement;
   late DateTime timestamp;

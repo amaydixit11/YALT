@@ -18,6 +18,8 @@ class IsarGateway {
       isarEntry.numericValue = entry.value;
     } else if (entry is BooleanMetricEntry) {
       isarEntry.booleanValue = entry.value;
+    } else if (entry is TextMetricEntry) {
+      isarEntry.textValue = entry.value;
     }
 
     await _isar.writeTxn(() async {

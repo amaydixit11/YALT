@@ -23,7 +23,10 @@ Future<void> main() async {
     dir = directory.path;
   }
 
-  final isar = await Isar.open([MetricEntryIsarSchema], directory: dir);
+  final isar = await Isar.open([
+    MetricEntryIsarSchema,
+    TimeTrackerEntryIsarSchema,
+  ], directory: dir);
   final logService = LogService(IsarGateway(isar));
   final timeTrackerService = TimeTrackerService(IsarGateway(isar));
 

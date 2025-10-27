@@ -32,8 +32,13 @@ const MetricEntryIsarSchema = CollectionSchema(
       name: r'numericValue',
       type: IsarType.double,
     ),
-    r'timestamp': PropertySchema(
+    r'textValue': PropertySchema(
       id: 3,
+      name: r'textValue',
+      type: IsarType.string,
+    ),
+    r'timestamp': PropertySchema(
+      id: 4,
       name: r'timestamp',
       type: IsarType.dateTime,
     )
@@ -58,6 +63,12 @@ int _metricEntryIsarEstimateSize(
   Map<Type, List<int>> allOffsets,
 ) {
   var bytesCount = offsets.last;
+  {
+    final value = object.textValue;
+    if (value != null) {
+      bytesCount += 3 + value.length * 3;
+    }
+  }
   return bytesCount;
 }
 
@@ -70,7 +81,8 @@ void _metricEntryIsarSerialize(
   writer.writeBool(offsets[0], object.booleanValue);
   writer.writeLong(offsets[1], object.metricId);
   writer.writeDouble(offsets[2], object.numericValue);
-  writer.writeDateTime(offsets[3], object.timestamp);
+  writer.writeString(offsets[3], object.textValue);
+  writer.writeDateTime(offsets[4], object.timestamp);
 }
 
 MetricEntryIsar _metricEntryIsarDeserialize(
@@ -84,7 +96,8 @@ MetricEntryIsar _metricEntryIsarDeserialize(
   object.id = id;
   object.metricId = reader.readLong(offsets[1]);
   object.numericValue = reader.readDoubleOrNull(offsets[2]);
-  object.timestamp = reader.readDateTime(offsets[3]);
+  object.textValue = reader.readStringOrNull(offsets[3]);
+  object.timestamp = reader.readDateTime(offsets[4]);
   return object;
 }
 
@@ -102,6 +115,8 @@ P _metricEntryIsarDeserializeProp<P>(
     case 2:
       return (reader.readDoubleOrNull(offset)) as P;
     case 3:
+      return (reader.readStringOrNull(offset)) as P;
+    case 4:
       return (reader.readDateTime(offset)) as P;
     default:
       throw IsarError('Unknown property with id $propertyId');
@@ -428,6 +443,160 @@ extension MetricEntryIsarQueryFilter
   }
 
   QueryBuilder<MetricEntryIsar, MetricEntryIsar, QAfterFilterCondition>
+      textValueIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'textValue',
+      ));
+    });
+  }
+
+  QueryBuilder<MetricEntryIsar, MetricEntryIsar, QAfterFilterCondition>
+      textValueIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'textValue',
+      ));
+    });
+  }
+
+  QueryBuilder<MetricEntryIsar, MetricEntryIsar, QAfterFilterCondition>
+      textValueEqualTo(
+    String? value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'textValue',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<MetricEntryIsar, MetricEntryIsar, QAfterFilterCondition>
+      textValueGreaterThan(
+    String? value, {
+    bool include = false,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        include: include,
+        property: r'textValue',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<MetricEntryIsar, MetricEntryIsar, QAfterFilterCondition>
+      textValueLessThan(
+    String? value, {
+    bool include = false,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.lessThan(
+        include: include,
+        property: r'textValue',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<MetricEntryIsar, MetricEntryIsar, QAfterFilterCondition>
+      textValueBetween(
+    String? lower,
+    String? upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.between(
+        property: r'textValue',
+        lower: lower,
+        includeLower: includeLower,
+        upper: upper,
+        includeUpper: includeUpper,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<MetricEntryIsar, MetricEntryIsar, QAfterFilterCondition>
+      textValueStartsWith(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.startsWith(
+        property: r'textValue',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<MetricEntryIsar, MetricEntryIsar, QAfterFilterCondition>
+      textValueEndsWith(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.endsWith(
+        property: r'textValue',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<MetricEntryIsar, MetricEntryIsar, QAfterFilterCondition>
+      textValueContains(String value, {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.contains(
+        property: r'textValue',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<MetricEntryIsar, MetricEntryIsar, QAfterFilterCondition>
+      textValueMatches(String pattern, {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.matches(
+        property: r'textValue',
+        wildcard: pattern,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<MetricEntryIsar, MetricEntryIsar, QAfterFilterCondition>
+      textValueIsEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'textValue',
+        value: '',
+      ));
+    });
+  }
+
+  QueryBuilder<MetricEntryIsar, MetricEntryIsar, QAfterFilterCondition>
+      textValueIsNotEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        property: r'textValue',
+        value: '',
+      ));
+    });
+  }
+
+  QueryBuilder<MetricEntryIsar, MetricEntryIsar, QAfterFilterCondition>
       timestampEqualTo(DateTime value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
@@ -535,6 +704,20 @@ extension MetricEntryIsarQuerySortBy
   }
 
   QueryBuilder<MetricEntryIsar, MetricEntryIsar, QAfterSortBy>
+      sortByTextValue() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'textValue', Sort.asc);
+    });
+  }
+
+  QueryBuilder<MetricEntryIsar, MetricEntryIsar, QAfterSortBy>
+      sortByTextValueDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'textValue', Sort.desc);
+    });
+  }
+
+  QueryBuilder<MetricEntryIsar, MetricEntryIsar, QAfterSortBy>
       sortByTimestamp() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'timestamp', Sort.asc);
@@ -606,6 +789,20 @@ extension MetricEntryIsarQuerySortThenBy
   }
 
   QueryBuilder<MetricEntryIsar, MetricEntryIsar, QAfterSortBy>
+      thenByTextValue() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'textValue', Sort.asc);
+    });
+  }
+
+  QueryBuilder<MetricEntryIsar, MetricEntryIsar, QAfterSortBy>
+      thenByTextValueDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'textValue', Sort.desc);
+    });
+  }
+
+  QueryBuilder<MetricEntryIsar, MetricEntryIsar, QAfterSortBy>
       thenByTimestamp() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'timestamp', Sort.asc);
@@ -643,6 +840,13 @@ extension MetricEntryIsarQueryWhereDistinct
     });
   }
 
+  QueryBuilder<MetricEntryIsar, MetricEntryIsar, QDistinct> distinctByTextValue(
+      {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(r'textValue', caseSensitive: caseSensitive);
+    });
+  }
+
   QueryBuilder<MetricEntryIsar, MetricEntryIsar, QDistinct>
       distinctByTimestamp() {
     return QueryBuilder.apply(this, (query) {
@@ -676,6 +880,12 @@ extension MetricEntryIsarQueryProperty
       numericValueProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'numericValue');
+    });
+  }
+
+  QueryBuilder<MetricEntryIsar, String?, QQueryOperations> textValueProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'textValue');
     });
   }
 

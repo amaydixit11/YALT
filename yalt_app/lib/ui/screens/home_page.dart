@@ -10,7 +10,8 @@ class HomePage extends StatefulWidget {
   State<HomePage> createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin {
+class _HomePageState extends State<HomePage>
+    with SingleTickerProviderStateMixin {
   late TabController _tabController;
 
   @override
@@ -31,10 +32,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
       appBar: AppBar(
         title: const Text(
           "YALT",
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-            fontSize: 24,
-          ),
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
         ),
         centerTitle: true,
         elevation: 0,
@@ -43,18 +41,9 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
         bottom: TabBar(
           controller: _tabController,
           tabs: const [
-            Tab(
-              icon: Icon(Icons.today),
-              text: "Today",
-            ),
-            Tab(
-              icon: Icon(Icons.timeline),
-              text: "Lifetime",
-            ),
-            Tab(
-              icon: Icon(Icons.access_time),
-              text: "Time Tracker",
-            ),
+            Tab(icon: Icon(Icons.today), text: "Today"),
+            Tab(icon: Icon(Icons.timeline), text: "Lifetime"),
+            // Tab(icon: Icon(Icons.access_time), text: "Time Tracker"),
           ],
           indicatorColor: Colors.blue,
           labelColor: Colors.blue,
@@ -66,9 +55,8 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
       body: TabBarView(
         controller: _tabController,
         children: const [
-          TodayScreen(),
-          LifetimeScreen(),
-          TimeTrackerScreen(),
+          TodayScreen(), LifetimeScreen(),
+          // TimeTrackerScreen()
         ],
       ),
     );

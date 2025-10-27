@@ -361,6 +361,22 @@ class _DebugDialogState extends State<DebugDialog> {
                   ),
                 ),
               ),
+            if (entry.textValue != null)
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+                decoration: BoxDecoration(
+                  color: Colors.blue.withOpacity(0.1),
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: Text(
+                  entry.textValue.toString(),
+                  style: const TextStyle(
+                    color: Colors.blue,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 12,
+                  ),
+                ),
+              ),
             const Icon(Icons.expand_more),
           ],
         ),
@@ -376,6 +392,8 @@ class _DebugDialogState extends State<DebugDialog> {
                   _buildInfoRow('Boolean Value', entry.booleanValue.toString()),
                 if (entry.numericValue != null)
                   _buildInfoRow('Numeric Value', entry.numericValue.toString()),
+                if (entry.textValue != null)
+                  _buildInfoRow('Text Value', entry.textValue.toString()),
                 const SizedBox(height: 12),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.end,
@@ -557,6 +575,7 @@ Metric ID: ${entry.metricId}
 Timestamp: ${entry.timestamp?.toLocal().toString() ?? 'Unknown'}
 Boolean Value: ${entry.booleanValue}
 Numeric Value: ${entry.numericValue}
+Text Value: ${entry.textValue}
 ''';
 
     Clipboard.setData(ClipboardData(text: text));
@@ -570,7 +589,7 @@ Numeric Value: ${entry.numericValue}
         .map(
           (entry) =>
               '''
-${_getMetricName(entry.metricId)} | ${_getMetricCategory(entry.metricId)} | ID: ${entry.metricId} | ${entry.timestamp?.toLocal().toString() ?? 'Unknown'} | Boolean: ${entry.booleanValue} | Numeric: ${entry.numericValue}
+${_getMetricName(entry.metricId)} | ${_getMetricCategory(entry.metricId)} | ID: ${entry.metricId} | ${entry.timestamp?.toLocal().toString() ?? 'Unknown'} | Boolean: ${entry.booleanValue} | Numeric: ${entry.numericValue} | Text: ${entry.textValue}
 ''',
         )
         .join('\n');
@@ -584,10 +603,10 @@ ${_getMetricName(entry.metricId)} | ${_getMetricCategory(entry.metricId)} | ID: 
   void _exportEntries(List<dynamic> entries) {
     // This would typically save to a file, but for now we'll copy CSV format
     final csv = [
-      'Metric Name,Category,Metric ID,Timestamp,Boolean Value,Numeric Value',
+      'Metric Name,Category,Metric ID,Timestamp,Boolean Value,Numeric Value,Text Value',
       ...entries.map(
         (entry) =>
-            '"${_getMetricName(entry.metricId)}","${_getMetricCategory(entry.metricId)}",${entry.metricId},"${entry.timestamp?.toLocal().toString() ?? 'Unknown'}",${entry.booleanValue},${entry.numericValue}',
+            '"${_getMetricName(entry.metricId)}","${_getMetricCategory(entry.metricId)}",${entry.metricId},"${entry.timestamp?.toLocal().toString() ?? 'Unknown'}",${entry.booleanValue},${entry.numericValue},"${entry.textValue}"',
       ),
     ].join('\n');
 
